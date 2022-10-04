@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "https://grading-system-python-8ml8ogos6-happi89.vercel.app/",
+    "https://grading-system-python-hw.vercel.app/",
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3001/?",
