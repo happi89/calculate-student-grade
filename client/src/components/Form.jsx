@@ -15,18 +15,22 @@ const Form = () => {
 				className='flex flex-col items-center items-center gap-4'
 				onSubmit={(event) => {
 					event.preventDefault();
-					fetch(
-						`http://localhost:8000/?name=${name}&mark=${Number(
-							mark
-						)}&code=${courseCode}`,
-						{
-							method: 'POST',
-						}
-					)
-						.then((response) => response.json())
-						.then((json) => {
-							setResult(json.result);
-						});
+					if (name && mark && courseCode && mark < 101 && mark >= 0) {
+						fetch(
+							`http://localhost:8000/?name=${name}&mark=${Number(
+								mark
+							)}&code=${courseCode}`,
+							{
+								method: 'POST',
+							}
+						)
+							.then((response) => response.json())
+							.then((json) => {
+								setResult([json.result[0], json.result[1], json.result[2]]);
+							});
+					} else {
+						alert('invalid inputs');
+					}
 
 					setName('');
 					setMark('');
@@ -59,13 +63,16 @@ const Form = () => {
 					Calculate
 				</button>
 			</form>
-			{result && (
-				<>
-					{result[1].map((m, i) => (
-						<p key={i}>{m}</p>
-					))}
-				</>
-			)}
+			<div className='flex flex-col items-center gap-2 mt-12'>
+				{result[1]?.length > 1 && (
+					<div className='my-0 mx-auto'>
+						<p>name: {result[0]?.name}</p>
+						<p>mark: {result[0]?.mark}</p>
+						<p>code: {result[0]?.code}</p>
+						<p>{result[1] + result[2]}</p>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };
