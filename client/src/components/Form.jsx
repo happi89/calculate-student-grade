@@ -6,6 +6,8 @@ const Form = () => {
 	const [courseCode, setCourseCode] = useState('');
 	const [result, setResult] = useState('');
 
+	console.log(result);
+
 	return (
 		<div className='container my-0 mx-auto'>
 			<h1 className='text-3xl font-bold text-center my-4'>Grader</h1>
@@ -23,7 +25,7 @@ const Form = () => {
 					)
 						.then((response) => response.json())
 						.then((json) => {
-							setResult(json);
+							setResult(json.result);
 						});
 
 					setName('');
@@ -58,9 +60,11 @@ const Form = () => {
 				</button>
 			</form>
 			{result && (
-				<p>{`name: ${[0].name}, mark: ${[0].mark}, course-code: ${[0].code}, ${[
-					1,
-				]}, ${[2]}`}</p>
+				<>
+					{result[1].map((m, i) => (
+						<p key={i}>{m}</p>
+					))}
+				</>
 			)}
 		</div>
 	);
