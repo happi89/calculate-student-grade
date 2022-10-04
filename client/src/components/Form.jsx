@@ -17,7 +17,7 @@ const Form = () => {
 					event.preventDefault();
 					if (name && mark && courseCode && mark < 101 && mark >= 0) {
 						fetch(
-							`http://localhost:8000/?name=${name}&mark=${Number(
+							`https://fastapi-production-7bd2.up.railway.app/?name=${name}&mark=${Number(
 								mark
 							)}&code=${courseCode}`,
 							{
