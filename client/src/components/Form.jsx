@@ -13,13 +13,13 @@ const Form = () => {
 				onSubmit={(event) => {
 					event.preventDefault();
 					fetch(
-						`https://fastapi-production-92af.up.railway.app/?name=${name}&mark=${mark}&course-code=${courseCode}`,
+						`https://fastapi-production-92af.up.railway.app/calculate-grade?name=${name}&mark=${mark}&course-code=${courseCode}`,
 						{
 							method: 'POST',
 						}
 					)
 						.then((response) => response.json())
-						.then((json) => alert(json));
+						.then((json) => console.log(json));
 
 					setName('');
 					setMark(0);
