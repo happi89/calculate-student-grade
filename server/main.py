@@ -7,6 +7,7 @@ origins = [
     "https://grading-system-python-8ml8ogos6-happi89.vercel.app/",
     "http://localhost:3000",
     "http://localhost:3001",
+    "http://localhost:3001/?",
     "http://localhost",
 ]
 
@@ -22,7 +23,7 @@ app.add_middleware(
 def calculate_student(name, mark, courseCode):
     aboveAchievment = ' You are above provincial standard'
     belowAchievment = ' You are below provincial standard'
-    returnStatment = {"name": name, 'course code': courseCode,'mark': mark}
+    returnStatment = {"name": name, 'code': courseCode,'mark': mark}
 
     if(mark >= 95 and mark <= 100):
         return returnStatment, aboveAchievment, ' and your grade is 4+'
@@ -49,7 +50,7 @@ def calculate_student(name, mark, courseCode):
     else:
         return 'invalid input'
 
-@app.get("/")
-async def calculate_grade(name: str, mark: int, courseCode: str):
-    result = calculate_student(name, mark, courseCode)
+@app.post("/")
+async def calculate_grade(name: str, mark: int, code: str):
+    result = calculate_student(name, mark, code)
     return { "result": result }

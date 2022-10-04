@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 const Form = () => {
 	const [name, setName] = useState('');
-	const [mark, setMark] = useState(0);
+	const [mark, setMark] = useState('');
 	const [courseCode, setCourseCode] = useState('');
+	const [result, setResult] = useState('');
 
 	return (
 		<div className='container my-0 mx-auto'>
@@ -13,16 +14,20 @@ const Form = () => {
 				onSubmit={(event) => {
 					event.preventDefault();
 					fetch(
-						`https://fastapi-production-92af.up.railway.app/calculate-grade?name=${name}&mark=${mark}&course-code=${courseCode}`,
+						`http://localhost:8000/?name=${name}&mark=${Number(
+							mark
+						)}&code=${courseCode}`,
 						{
 							method: 'POST',
 						}
 					)
 						.then((response) => response.json())
-						.then((json) => console.log(json));
+						.then((json) => {
+							setResult(json);
+						});
 
 					setName('');
-					setMark(0);
+					setMark('');
 					setCourseCode('');
 				}}>
 				<input
@@ -52,6 +57,11 @@ const Form = () => {
 					Calculate
 				</button>
 			</form>
+			{result && (
+				<p>{`name: ${[0].name}, mark: ${[0].mark}, course-code: ${[0].code}, ${[
+					1,
+				]}, ${[2]}`}</p>
+			)}
 		</div>
 	);
 };
